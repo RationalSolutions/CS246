@@ -1,9 +1,4 @@
 # Project exclude paths
 /out/
-/CS246.iml
-/.idea/misc.xml
-/.idea/modules.xml
-/W01/Prove-01/Prove-01.iml
-/W01/Teach-01/Teach-01.iml
-/.idea/vcs.xml
-/.idea/uiDesigner.xml
+*.iml
+*.xml

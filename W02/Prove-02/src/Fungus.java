@@ -1,4 +1,5 @@
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Point;
 import java.util.Random;
 
 public class Fungus extends Creature implements Spawner, Aware {

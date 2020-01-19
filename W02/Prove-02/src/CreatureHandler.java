@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Random;
 import java.awt.Point;
 import java.util.List;
@@ -113,6 +114,7 @@ public class CreatureHandler
 	* act on their implemented behaviors.
 	*/
 	public void updateCreatures() {
+		List<Creature> spawnedCreatures = new ArrayList<Creature>();
 
 		// Handle all our creature behaviors here. Since we don't know ahead of time
 		// which creatures implement which behaviors, we can use the instanceof keyword
@@ -122,6 +124,14 @@ public class CreatureHandler
 				// Skip dead creatures
 				if(!c.isAlive())
 					continue;
+
+				if (c instanceof Spawner){
+					Spawner s = (Spawner)c;
+					Creature babyC = s.spawnNewCreature();
+					if (babyC != null){
+						spawnedCreatures.add(babyC);
+					}
+				}
 
 				if(c instanceof Aware) {
 					Creature above = getTarget(c, 0, -1);
@@ -144,5 +154,10 @@ public class CreatureHandler
 				}
 				
 			}
+
+		for (Creature c: spawnedCreatures ) {
+			Creature spawn = c;
+			_creatures.add(spawn);
+		}
 	}
 }

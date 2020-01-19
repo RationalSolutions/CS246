@@ -142,7 +142,7 @@ public class World extends Canvas implements Runnable  {
 		}
 		
 		// Draw the grid lines
-		context.setColor(new Color(187, 187, 185));
+		context.setColor(new Color(197, 197, 197));
 		int rows = _world.height / _cell.height;
 		int cols = _world.width / _cell.width;
 

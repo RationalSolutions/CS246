@@ -1,4 +1,4 @@
-import java.awt.Color;
+import java.awt.*;
 import java.util.Random;
 
 /**
@@ -9,16 +9,17 @@ import java.util.Random;
 * @since   2016-12-08 
 * @see Creature
 */
-public class Animal extends Creature implements Movable, Aggressor {
+public class Animal extends Creature implements Movable, Aggressor, Spawner {
 	
 	Random _rand;
-	
+	boolean ableToSpawn;
 	/**
 	* Creates an animal with 1 health point.
 	*/
 	public Animal() {
 		_rand = new Random();
 		_health = 1;
+		ableToSpawn = false;
 	}
 	
 	// No javadocs are necessary for these methods because they will inherit the 
@@ -47,7 +48,13 @@ public class Animal extends Creature implements Movable, Aggressor {
 		if(target instanceof Plant) {
 			target.takeDamage(1);
 			_health++;
+		} else if (target instanceof Fungus){
+			target.takeDamage(1);
+			_health++;
+			ableToSpawn = true;
 		}
+
+
 	}
 	
 	/**
@@ -72,5 +79,19 @@ public class Animal extends Creature implements Movable, Aggressor {
 			default:
 				break;
 		}
+	}
+
+	@Override
+	public Creature spawnNewCreature() {
+		if (ableToSpawn)
+		{
+			Animal a = new Animal();
+			int x = this._location.x - 1;
+			int y = this._location.y;
+			a.setLocation(new Point(x,y));
+			ableToSpawn = false;
+			return a;
+		}
+		return null;
 	}
 }
